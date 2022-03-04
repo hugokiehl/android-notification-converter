@@ -1,3 +1,5 @@
+# Android Notification Converter
+
 This is a scratch of an Android app which listens for notifications and creates new/custom notifications out of the initial one.
 
 The only reason I created this app is that I could not see the images of the notifications from my Nest cameras in my Samsung Galaxy Watch Active 2 (GWA2), just the text "Your Front Door camera noticed some activity" in my watch was useless, and that was bothering me for a long while.
