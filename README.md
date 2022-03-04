@@ -2,7 +2,7 @@
 
 This is a working scratch of an Android app which listens for notifications and creates new custom notifications out of the initial one. 
 
-The only reason I created this app is that I could not see the images of the notifications from my Nest cameras in my Samsung Galaxy Watch Active 2 (GWA2), just the text "Your Front Door camera noticed some activity" in my watch was useless, and that was bothering me for a long while. It's a crappy code, but it solves my problem.
+The only reason I created this app is that I could not see the images of the notifications from my Nest cameras in my Samsung Galaxy Watch Active 2 (GWA2), just a text like "Your Front Door camera noticed some activity" in my watch was totally useless, and that was bothering me for a long while. It's a crappy code, but it solves my problem.
 
 The main images in a Nest camera notification are a sequence of images (so you can see some movement in between the frames in your phone), and those images are available in a location which the GWA2 doesn't use. There is also a single camera frame/image under in an EXTRA_PICTURE which becomes available if you create a WearableExtender out of the source notification, but that EXTRA_PICTURE is also not consumed by GWA2, however, it's in a good format to be used as a "bigPicture" in a regular Notification, and that, yes, gets consumed by the GWA2, **hurray!**
 
