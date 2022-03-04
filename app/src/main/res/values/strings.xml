@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="channel_name">myapp</string>
+    <string name="channel_description">app channel test</string>
+    <string name="notification_listener_service_name">app notification listener</string>
+    <string name="notification_listener_service_explanation">service to listen to notifications</string>
+    <string name="nest_notification_listener_service_name">nest notification listener</string>
+    <string name="nest_notification_listener_service_explanation">service to listen to nest notifications</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+</resources>
