@@ -21,4 +21,4 @@ Pros:
 
 Cons:
 - The new notifications don't show movement / multiple frames as the original Nest notification does - GWA2 does not support it (maybe updating the image of an existing notification in a loop would be interesting - but I don't believe it works for GWA2) 
-- Nest notifications are duplicated, but it's possible to modify this app to clean up the source, but then you'll loose the cool Nest notification with "movement".
+- Nest notifications get duplicated, but it's possible to modify this app to clean up the source, but then you'll loose the cool Nest notification with "movement" on your phone. However, the GWA2 can be configured to not send the original nest notifications to the watch, so no duplicated notification in the there. 
