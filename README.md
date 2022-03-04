@@ -13,7 +13,7 @@ With the current version of this app, I'm able to get all Nest camera notificati
 
 <img src="https://user-images.githubusercontent.com/3311313/156721887-98af5597-b0fd-400c-8eed-49641446ab62.jpg" width="400" height="598"/> <img src="https://user-images.githubusercontent.com/3311313/156721902-69cb44b7-19fe-442d-941b-69cae9da2d1f.jpg" width="400" height="598"/>
 
-Note that once you install it into your phone (push it to phone with Android Studio), you will need to find the app in the launcher and open it once and grand permission so it can retrieve notification images.
+Note that once you install it into your phone, you will need to find the app in the launcher and open it once and grand permission so it can retrieve notification images.
 
 Pros: 
 - Nest camera notifications show up with images in my GWA2.
