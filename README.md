@@ -8,7 +8,7 @@ The main images in a Nest camera notification are a sequence of images (so you c
 
 Hence, this app just extracts data from the source notification and creates a new simple/standard notification which works great with my GWA2.
 
-With the current version of this app, I'm able to get all Nest camera notifications and see their text and images, so, so far, I had no need to improve it, but maybe someone out there is also looking for a way to solve the same problem I had, or maybe have some ideas and wants to extend this app. (*You read this far so, yeah, go for it and have fun!*)
+With the current version of this app, I'm able to get all Nest camera notifications and see their text and images, so, so far, I had no need to improve it, but maybe someone out there is also looking for a way to solve the same problem I had, or maybe have some ideas and wants to extend this app. (*You read this far, so, yeah, go for it and have fun!*)
 
 
 <img src="https://user-images.githubusercontent.com/3311313/156721887-98af5597-b0fd-400c-8eed-49641446ab62.jpg" width="400" height="598"/> <img src="https://user-images.githubusercontent.com/3311313/156721902-69cb44b7-19fe-442d-941b-69cae9da2d1f.jpg" width="400" height="598"/>
