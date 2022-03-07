@@ -1,6 +1,6 @@
 # Android Notification Converter
 
-*(due to requests, APK file coming very soon)*
+*(For APK, see https://github.com/hugokiehl/android-notification-converter/releases)*
 
 This is a working scratch of an Android app which listens for notifications and creates new custom notifications out of the initial one. 
 
