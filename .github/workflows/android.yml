@@ -48,7 +48,7 @@ jobs:
     - name: Find artifact names
       id: set-result-artifact
       run: |
-        ARTIFACT_PATHNAME_APK=app/build/outputs/apk/release/app-release-unsigned.apk
+        ARTIFACT_PATHNAME_APK=app/build/outputs/apk/release/app-debug.apk
         ARTIFACT_NAME_APK=app-release-unsigned.apk
         echo "ARTIFACT_NAME_APK is " ${ARTIFACT_NAME_APK}
         echo "ARTIFACT_PATHNAME_APK=${ARTIFACT_PATHNAME_APK}" >> $GITHUB_ENV
@@ -56,7 +56,6 @@ jobs:
 #      run: |
 #        ARTIFACT_PATHNAME_APK=$(ls app/build/outputs/apk/release/*.apk | head -n 1)
 #        ARTIFACT_NAME_APK=$(basename $ARTIFACT_PATHNAME_APK)
-        
 
     - name: Upload artifacts
       id: upload-release-asset
