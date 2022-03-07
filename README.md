@@ -1,5 +1,7 @@
 # Android Notification Converter
 
+*(due to requests, APK file coming very soon)*
+
 This is a working scratch of an Android app which listens for notifications and creates new custom notifications out of the initial one. 
 
 The only reason I created this app was to be able to see the notifications from my Nest cameras in my Samsung Galaxy Watch Active 2 (GWA2). Notifications in my watch with just a text like "Your Front Door camera noticed some activity" was totally useless, and that was bothering me for a long while, so, I came up with the idea of building this app. It's a crappy code, but it solved my problem.
