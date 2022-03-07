@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
@@ -19,7 +18,6 @@ import java.util.List;
 
 public class NestNotificationListener extends NotificationListenerService {
     private static final String TAG = NestNotificationListener.class.getSimpleName();
-    private static final String TARGET_PACKAGE = "com.nest.android";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -32,9 +30,9 @@ public class NestNotificationListener extends NotificationListenerService {
 
 //        StatusBarNotification[] notifications = getActiveNotifications();
 
-        if (!sbn.getPackageName().equals(TARGET_PACKAGE)) {
+        if (!sbn.getPackageName().equals(getString(R.string.nest_package))) {
             Log.d(TAG, "skipping notification, it's not from '"
-                    +TARGET_PACKAGE+"', actually from '"+sbn.getNotification()+"'");
+                    +getString(R.string.nest_package)+"', actually from '"+sbn.getNotification()+"'");
 
             // TODO remove
 //            StatusBarNotification[] notifications = getActiveNotifications();
@@ -44,7 +42,7 @@ public class NestNotificationListener extends NotificationListenerService {
 //                }
 //            }
 
-            return ;
+            return;
         }
 
         Bitmap picture = null;
@@ -82,7 +80,7 @@ public class NestNotificationListener extends NotificationListenerService {
         // TODO get other types (text style, etc...) e.g. filter reminders, smoke alarm checking
 
         if (good) {
-            Notification noti = new NotificationCompat.Builder(this, "HUGO_APP")
+            Notification noti = new NotificationCompat.Builder(this, getString(R.string.channel_id))
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                     .setSmallIcon(R.drawable.elmo_gif)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -169,8 +167,6 @@ public class NestNotificationListener extends NotificationListenerService {
          */
 
         deep(bigContentView);
-
-
     }
 
     void deep(RemoteViews views) {

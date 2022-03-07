@@ -34,96 +34,21 @@ import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final static String CHANNEL_ID = "HUGO_APP";
-
-    public void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    public void sendNotification() {
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-//                .setSmallIcon(R.drawable.notification_icon)
-//                .setContentTitle("textTitle")
-//                .setContentText("textContent")
-//                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-//        notificationManager.notify(1500, builder.build());
-
-
-        RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.decnotification);
-        contentView.setImageViewBitmap(R.id.imageView2, BitmapFactory.decodeResource(getResources(), R.drawable.elmo_gif));
-        RemoteViews bigContentView = new RemoteViews(getPackageName(), R.layout.decbignotification);
-        bigContentView.setImageViewResource(R.id.aqq, R.drawable.elmo_gif);
-//        contentView.setImageViewResource(R.id.);
-        Notification noti = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setSmallIcon(R.drawable.elmo_gif)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.elmo_gif))
-                .setContent(contentView)
-                .setCustomContentView(contentView)
-//                .setCustomHeadsUpContentView(contentView)
-                .setCustomBigContentView(bigContentView)
-//                .setCustomBigContentView(bigContentView)
-                .setContentTitle("textTitle")
-                .setContentText("textContent")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//                .setOngoing(true)
-                .setAutoCancel(true)
-                .build();
-//        Notification.Builder nb = Notification.Builder.recoverBuilder(getApplicationContext(), noti);
-//        (new NotificationCompat.DecoratedCustomViewStyle()).makeContentView(nb);
-        notificationManager.notify(1501, noti);
-    }
-
     private ImageView interceptedNotificationImageView;
     private ImageChangeBroadcastReceiver imageChangeBroadcastReceiver;
     private AlertDialog enableNotificationListenerAlertDialog;
+    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        createNotificationChannel();
-
-        // If the user did not turn the notification listener service on we prompt him to do so
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        if(!notificationManager.isNotificationListenerAccessGranted(getComponentName())){
-//        if (!isNotificationServiceEnabled()) {
-            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
-            enableNotificationListenerAlertDialog.show();
+        boolean runInBackground = false;
+        if (runInBackground) {
+            startService(new Intent(this, NotificationInterceptorService.class));
+        } else {
+            onCreateWithUI(savedInstanceState);
         }
-
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                sendNotification();
-            }
-        });
-
-        imageChangeBroadcastReceiver = new ImageChangeBroadcastReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.github.chagall.notificationlistenerexample");
-        registerReceiver(imageChangeBroadcastReceiver,intentFilter);
     }
 
     @Override
@@ -154,9 +79,96 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+    protected void onCreateBackgroundService(Bundle savedInstanceState) {
+        createNotificationChannel();
 
-    private boolean isNotificationServiceEnabled(){
+    }
+
+    protected void onCreateWithUI(Bundle savedInstanceState) {
+        createNotificationChannel();
+
+        // If the user did not turn the notification listener service on we prompt him to do so
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        if (!notificationManager.isNotificationListenerAccessGranted(getComponentName())) {
+//        if (!isNotificationServiceEnabled()) {
+            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
+            enableNotificationListenerAlertDialog.show();
+        }
+
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                sendNotification();
+            }
+        });
+
+        imageChangeBroadcastReceiver = new ImageChangeBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.github.chagall.notificationlistenerexample");
+        registerReceiver(imageChangeBroadcastReceiver,intentFilter);
+    }
+
+    public void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String id = getString(R.string.channel_id);
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(id, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = this.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void sendNotification() {
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.notification_icon)
+//                .setContentTitle("textTitle")
+//                .setContentText("textContent")
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//        notificationManager.notify(1500, builder.build());
+
+
+        RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.decnotification);
+        contentView.setImageViewBitmap(R.id.imageView2, BitmapFactory.decodeResource(getResources(), R.drawable.elmo_gif));
+        RemoteViews bigContentView = new RemoteViews(getPackageName(), R.layout.decbignotification);
+        bigContentView.setImageViewResource(R.id.aqq, R.drawable.elmo_gif);
+//        contentView.setImageViewResource(R.id.);
+        Notification noti = new NotificationCompat.Builder(this, getString(R.string.channel_id))
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setSmallIcon(R.drawable.elmo_gif)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.elmo_gif))
+                .setContent(contentView)
+                .setCustomContentView(contentView)
+//                .setCustomHeadsUpContentView(contentView)
+                .setCustomBigContentView(bigContentView)
+//                .setCustomBigContentView(bigContentView)
+                .setContentTitle("textTitle")
+                .setContentText("textContent")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setOngoing(true)
+                .setAutoCancel(true)
+                .build();
+//        Notification.Builder nb = Notification.Builder.recoverBuilder(getApplicationContext(), noti);
+//        (new NotificationCompat.DecoratedCustomViewStyle()).makeContentView(nb);
+        notificationManager.notify(1501, noti);
+    }
+
+    private boolean isNotificationServiceEnabled() {
         String pkgName = getPackageName();
         final String flat = Settings.Secure.getString(getContentResolver(),
                 ENABLED_NOTIFICATION_LISTENERS);
@@ -174,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private AlertDialog buildNotificationServiceAlertDialog(){
+    private AlertDialog buildNotificationServiceAlertDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(R.string.notification_listener_service_name);
         alertDialogBuilder.setMessage(R.string.notification_listener_service_explanation);
@@ -194,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         return(alertDialogBuilder.create());
     }
 
-    private void changeInterceptedNotificationImage(int notificationCode){
+    private void changeInterceptedNotificationImage(int notificationCode) {
         int i=0;
         i++;
 //        switch(notificationCode){
