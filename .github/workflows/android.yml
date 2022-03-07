@@ -49,7 +49,7 @@ jobs:
       id: set-result-artifact
       run: |
         ARTIFACT_PATHNAME_APK=app/build/outputs/apk/debug/app-debug.apk
-        ARTIFACT_NAME_APK=app-release-unsigned.apk
+        ARTIFACT_NAME_APK=app-debug.apk
         echo "ARTIFACT_NAME_APK is " ${ARTIFACT_NAME_APK}
         echo "ARTIFACT_PATHNAME_APK=${ARTIFACT_PATHNAME_APK}" >> $GITHUB_ENV
         echo "ARTIFACT_NAME_APK=${ARTIFACT_NAME_APK}" >> $GITHUB_ENV
