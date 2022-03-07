@@ -25,6 +25,15 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
+    - name: Delete possibly existing release and tag
+      id: delete_release_tag
+      uses: dev-drprasad/delete-tag-and-release@v0.2.0
+      with:
+        delete_release: true
+        tag_name: ${{ github.ref }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Create release
       id: create_release
       uses: actions/create-release@v1
