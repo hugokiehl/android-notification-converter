@@ -39,7 +39,7 @@ jobs:
     - name: Find artifact names
       id: set-result-artifact
       run: |
-        ARTIFACT_NAME=app/build/outputs/apk/release/app-release-unsigned.apk
+        ARTIFACT_PATHNAME_APK=app/build/outputs/apk/release/app-release-unsigned.apk
         ARTIFACT_NAME_APK=app-release-unsigned.apk
 #      run: |
 #        ARTIFACT_PATHNAME_APK=$(ls app/build/outputs/apk/release/*.apk | head -n 1)
