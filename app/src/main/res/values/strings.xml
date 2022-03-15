@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Notification Converter</string>
+    <string name="app_name">ANConv</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -20,4 +20,3 @@
     <string name="no">NO</string>
     <string name="nest_package">com.nest.android</string>
 </resources>
-
