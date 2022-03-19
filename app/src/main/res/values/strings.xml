@@ -18,5 +18,5 @@
     <string name="nest_notification_listener_service_explanation">service to listen to nest notifications</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
-    <string name="nest_package">com.nest.android</string>
+    <string name="nest_package">com.immediasemi.android.blink</string>
 </resources>
